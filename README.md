@@ -1,2 +1,3 @@
 # flutter-timer
-Timer app written on Dart with Flutter
+
+Timer app written on Dart with Flutter.
