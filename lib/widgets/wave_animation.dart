@@ -54,6 +54,12 @@ class _DemoBodyState extends State<DemoBody> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
     );
