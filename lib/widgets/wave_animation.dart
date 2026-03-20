@@ -42,7 +42,17 @@ class DemoBody extends StatefulWidget {
 }
 
 class _DemoBodyState extends State<DemoBody> with TickerProviderStateMixin {
-  
+  late AnimationController animationController; // Added late keyword
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(); // Chained repeat for conciseness
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
