@@ -36,4 +36,16 @@ class DemoBody extends StatefulWidget {
     this.yOffset = 0,
     this.color,
   });
+
+  @override
+  State<DemoBody> createState() => _DemoBodyState();
+}
+
+class _DemoBodyState extends State<DemoBody> with TickerProviderStateMixin {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+    );
+  }
 }
