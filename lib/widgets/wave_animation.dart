@@ -21,3 +21,19 @@ class WaveClipper extends CustomClipper<Path> {
     return path;
   }
 }
+
+class DemoBody extends StatefulWidget {
+  final Size size;
+  final int xOffset;
+  final int yOffset;
+  final Color? color; // Marked as nullable
+
+  // Used super.key and required keyword
+  const DemoBody({
+    super.key,
+    required this.size,
+    this.xOffset = 0,
+    this.yOffset = 0,
+    this.color,
+  });
+}
