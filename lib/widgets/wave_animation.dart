@@ -8,4 +8,16 @@ class WaveClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(WaveClipper oldClipper) => animation != oldClipper.animation;
+
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+    if (waveList1.isNotEmpty) {
+      path.addPolygon(waveList1, false);
+      path.lineTo(size.width, size.height);
+      path.lineTo(0.0, size.height);
+      path.close();
+    }
+    return path;
+  }
 }
