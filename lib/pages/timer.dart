@@ -15,6 +15,13 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
   late Timer timer;
   final Stopwatch stopwatch = Stopwatch();
 
+  String timeText = '';
+  String statusText = '';
+  String buttonText = 'Start';
+
+  late AnimationController _controller;
+  double begin = 0.0;
+
   void _formatTime() {
     final totalDuration = Duration(
       hours: widget.task.hours, 
@@ -30,6 +37,18 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
     setState(() {
       timeText = '$hours:$minutes:$seconds';
     });
+  }
+
+  void _restartCountDown() {
+    setState(() {
+      begin = 0.0;
+      statusText = '';
+      buttonText = 'Start';
+    });
+    _controller.reset();
+    stopwatch.stop();
+    stopwatch.reset();
+    _formatTime();
   }
 
   @override
