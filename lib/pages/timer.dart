@@ -51,6 +51,40 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
     _formatTime();
   }
 
+  void updateClock() {
+    final totalDuration = Duration(
+      hours: widget.task.hours, 
+      minutes: widget.task.minutes, 
+      seconds: widget.task.seconds
+    );
+
+    // Completion Logic
+    if (stopwatch.elapsed >= totalDuration) {
+      stopwatch.stop();
+      _controller.stop();
+      setState(() {
+        statusText = 'Finished';
+        buttonText = "Restart";
+      });
+      _formatTime();
+      return;
+    }
+
+    _formatTime();
+
+    // Update Button State
+    setState(() {
+      if (stopwatch.isRunning) {
+        buttonText = "Running";
+        statusText = '';
+      } else if (stopwatch.elapsed.inMilliseconds == 0) {
+        buttonText = "Start";
+      } else {
+        buttonText = "Paused";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
