@@ -169,6 +169,22 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
               ),
             ),
           ),
+          // Timer Display
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  timeText,
+                  style: const TextStyle(fontSize: 64, color: Colors.white, fontWeight: FontWeight.w200),
+                ),
+                Text(
+                  statusText,
+                  style: const TextStyle(color: Colors.white70, fontSize: 18),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
