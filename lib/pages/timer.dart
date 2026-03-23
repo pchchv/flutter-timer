@@ -14,6 +14,9 @@ class TimerPage extends StatefulWidget {
 class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMixin {
   late Timer timer;
   final Stopwatch stopwatch = Stopwatch();
+  
+  // 50ms is plenty for a smooth UI update without taxing the CPU
+  static const delay = Duration(milliseconds: 50);
 
   String timeText = '';
   String statusText = '';
@@ -83,6 +86,28 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
         buttonText = "Paused";
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    
+    final duration = Duration(
+      hours: widget.task.hours, 
+      minutes: widget.task.minutes, 
+      seconds: widget.task.seconds
+    );
+
+    _controller = AnimationController(
+      duration: duration,
+      vsync: this,
+    );
+
+    // Initial text setup
+    _formatTime();
+    
+    // Start the periodic UI refresh
+    timer = Timer.periodic(delay, (Timer t) => updateClock());
   }
 
   @override
