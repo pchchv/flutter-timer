@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer/model/task.dart';
 import 'package:flutter_timer/widgets/wave_animation.dart';
+import 'package:flutter_timer/widgets/rounded_button.dart';
 
 class TimerPage extends StatefulWidget {
   final Task task;
@@ -185,6 +186,31 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
               ],
             ),
           ),
+          // Control Button
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 32),
+              child: GestureDetector(
+                onTap: () {
+                  if (stopwatch.isRunning) {
+                    stopwatch.stop();
+                    _controller.stop();
+                  } else {
+                    // Logic to handle restart if finished
+                    if (statusText == 'Finished') {
+                      _restartCountDown();
+                    }
+                    begin = 50.0;
+                    stopwatch.start();
+                    _controller.forward();
+                  }
+                  updateClock();
+                },
+                child: RoundedButton(text: buttonText),
+              ),
+            ),
+          )
         ],
       ),
     );
