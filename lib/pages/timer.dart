@@ -157,6 +157,18 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
               ),
             ),
           ),
+          // Task Title
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.25,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                widget.task.title,
+                style: const TextStyle(fontSize: 24, color: Colors.white70, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
         ],
       ),
     );
