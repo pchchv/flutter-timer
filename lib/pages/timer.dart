@@ -138,6 +138,25 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
               );
             },
           ),
+          // Top Navigation
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.navigate_before, size: 40, color: Colors.white70),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.sync, size: 32, color: Colors.white70),
+                    onPressed: _restartCountDown,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
