@@ -111,6 +111,13 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
