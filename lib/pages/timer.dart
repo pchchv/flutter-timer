@@ -119,6 +119,10 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    // Tween setup that updates with the controller
+    final heightAnimation = Tween(begin: begin, end: MediaQuery.of(context).size.height - 65)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
