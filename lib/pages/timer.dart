@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_timer/model/task.dart';
+import 'package:flutter_timer/widgets/wave_animation.dart';
 
 class TimerPage extends StatefulWidget {
   final Task task;
@@ -126,6 +127,18 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
+        children: <Widget>[
+          // Wave Animation
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return DemoBody(
+                size: Size(MediaQuery.of(context).size.width, heightAnimation.value), 
+                color: widget.task.color
+              );
+            },
+          ),
+        ],
       ),
     );
   }
