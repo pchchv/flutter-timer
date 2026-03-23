@@ -15,6 +15,23 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
   late Timer timer;
   final Stopwatch stopwatch = Stopwatch();
 
+  void _formatTime() {
+    final totalDuration = Duration(
+      hours: widget.task.hours, 
+      minutes: widget.task.minutes, 
+      seconds: widget.task.seconds
+    );
+    
+    final remaining = totalDuration - stopwatch.elapsed;
+    final displayTime = remaining.inMilliseconds > 0 ? remaining : Duration.zero;
+    final hours = displayTime.inHours.toString().padLeft(2, '0');
+    final minutes = (displayTime.inMinutes % 60).toString().padLeft(2, '0');
+    final seconds = (displayTime.inSeconds % 60).toString().padLeft(2, '0');
+    setState(() {
+      timeText = '$hours:$minutes:$seconds';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
