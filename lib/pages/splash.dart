@@ -13,6 +13,11 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        child: Image.asset(
+          'images/timer.png',
+          width: 100.0,
+          height: 100.0,
+        ),
       ),
     );
   }
