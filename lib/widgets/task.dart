@@ -4,7 +4,7 @@ import 'package:flutter_timer/model/task.dart';
 import 'package:flutter_timer/pages/timer.dart';
 
 class TaskWidget extends StatelessWidget {
-  const TaskWidget({Key? key, required this.task}) : super(key: key);
+  const TaskWidget({super.key, required this.task});
 
   final Task task;
   final BorderRadius _borderRadius = const BorderRadius.all(Radius.circular(8.0));
