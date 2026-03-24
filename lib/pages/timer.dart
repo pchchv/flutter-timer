@@ -184,10 +184,11 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
                   timeText,
                   style: const TextStyle(fontSize: 64, color: Colors.white, fontWeight: FontWeight.w200),
                 ),
-                Text(
-                  statusText,
-                  style: const TextStyle(color: Colors.white70, fontSize: 18),
-                ),
+                if (statusText.isNotEmpty)
+                  Text(
+                    statusText,
+                    style: const TextStyle(color: Colors.white70, fontSize: 18),
+                  ),
               ],
             ),
           ),
