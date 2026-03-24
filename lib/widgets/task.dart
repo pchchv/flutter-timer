@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_timer/model/task.dart';
 
 class TaskWidget extends StatelessWidget {
@@ -12,6 +12,14 @@ class TaskWidget extends StatelessWidget {
     final m = task.minutes.toString().padLeft(2, '0');
     final s = task.seconds.toString().padLeft(2, '0');
     return '$h:$m:$s';
+  }
+
+  void _startTimerPage(BuildContext context, Task task) {
+    Navigator.of(context, rootNavigator: true).push(
+      CupertinoPageRoute(
+        builder: (_) => TimerPage(task: task),
+      ),
+    );
   }
 
   @override
