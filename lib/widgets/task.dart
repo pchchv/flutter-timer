@@ -34,6 +34,49 @@ class TaskWidget extends StatelessWidget {
           width: 0.5,
         ),
       ),
+      child: InkWell(
+        onTap: () => _startTimerPage(context, task),
+        borderRadius: _borderRadius,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 26),
+          child: Row(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(right: 12.0),
+                width: 15.0,
+                height: 15.0,
+                decoration: BoxDecoration(
+                  color: task.color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      task.title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 19.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Duration: ${_formatDuration()}',
+                      style: const TextStyle(color: Colors.black54, fontSize: 14.0),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.navigate_next,
+                color: task.color,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
