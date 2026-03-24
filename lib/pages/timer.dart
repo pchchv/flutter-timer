@@ -39,9 +39,12 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
     final hours = displayTime.inHours.toString().padLeft(2, '0');
     final minutes = (displayTime.inMinutes % 60).toString().padLeft(2, '0');
     final seconds = (displayTime.inSeconds % 60).toString().padLeft(2, '0');
-    setState(() {
-      timeText = '$hours:$minutes:$seconds';
-    });
+    
+    if (mounted) {
+      setState(() {
+        timeText = '$hours:$minutes:$seconds';
+      });
+    }
   }
 
   void _restartCountDown() {
@@ -57,6 +60,8 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
   }
 
   void updateClock() {
+    if (!mounted) return;
+
     final totalDuration = Duration(
       hours: widget.task.hours, 
       minutes: widget.task.minutes, 
