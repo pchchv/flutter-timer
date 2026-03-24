@@ -20,6 +20,15 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+    startTimer();
+  }
+
+  @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
