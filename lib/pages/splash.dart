@@ -1,0 +1,12 @@
+import 'package:flutter/material.dart';
+
+class SplashPage extends StatefulWidget {
+  // Use super.key for modern Dart syntax
+  const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+}
