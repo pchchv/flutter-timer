@@ -7,14 +7,14 @@ import 'package:flutter_timer/widgets/rounded_button.dart';
 class TimerPage extends StatefulWidget {
   final Task task;
 
-  const TimerPage({Key? key, required this.task}) : super(key: key);
+  const TimerPage({super.key, required this.task});
 
   @override
-  _TimerPageState createState() => _TimerPageState();
+  State<TimerPage> createState() => _TimerPageState();
 }
 
 class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMixin {
-  late Timer timer;
+  Timer? timer;
   final Stopwatch stopwatch = Stopwatch();
   
   // 50ms is plenty for a smooth UI update without taxing the CPU
@@ -115,7 +115,7 @@ class _TimerPageState extends State<TimerPage> with SingleTickerProviderStateMix
   @override
   void dispose() {
     _controller.dispose();
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
