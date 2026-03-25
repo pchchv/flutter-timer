@@ -41,6 +41,12 @@ class _SelectorState<T> extends State<_Selector<T>> {
           ),
         );
       },
+      onSelectedItemChanged: (i) {
+        setState(() {
+          _currentIndex = i;
+        });
+        widget.onSelectedItemChanged(widget.items[i]);
+      },
     );
   }
 }
