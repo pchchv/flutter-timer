@@ -284,3 +284,14 @@ class NumberPicker extends StatelessWidget {
     );
   }
 }
+
+/// Returns AlertDialog as a Widget designed to be used in showDialog method.
+class NumberPickerDialog extends StatefulWidget {
+  @override
+  State<NumberPickerDialog> createState() => _NumberPickerDialogState();
+}
+
+class _NumberPickerDialogState extends State<NumberPickerDialog> {
+  late int selectedIntValue;
+  late double selectedDoubleValue;
+}
