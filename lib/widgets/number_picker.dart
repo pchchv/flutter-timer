@@ -356,6 +356,33 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      title: widget.title,
+      titlePadding: widget.titlePadding,
+      content: widget.decimalPlaces > 0 
+        ? NumberPicker.decimal(
+            initialValue: selectedDoubleValue,
+            minValue: widget.minValue,
+            maxValue: widget.maxValue,
+            decimalPlaces: widget.decimalPlaces,
+            onChanged: _handleValueChanged)
+        : NumberPicker.integer(
+            initialValue: selectedIntValue,
+            minValue: widget.minValue,
+            maxValue: widget.maxValue,
+            step: widget.step,
+            onChanged: _handleValueChanged),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: widget.cancelWidget,
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(
+            widget.decimalPlaces > 0 ? selectedDoubleValue : selectedIntValue,
+          ),
+          child: widget.confirmWidget,
+        ),
+      ],
     );
   }
 }
