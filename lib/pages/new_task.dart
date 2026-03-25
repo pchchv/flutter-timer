@@ -19,4 +19,13 @@ class _Selector<T> extends StatefulWidget {
 
 class _SelectorState<T> extends State<_Selector<T>> {
   int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPicker.builder(
+      itemExtent: 60,
+      childCount: widget.items.length,
+      backgroundColor: Colors.transparent,
+    );
+  }
 }
