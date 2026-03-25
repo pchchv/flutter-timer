@@ -287,6 +287,32 @@ class NumberPicker extends StatelessWidget {
 
 /// Returns AlertDialog as a Widget designed to be used in showDialog method.
 class NumberPickerDialog extends StatefulWidget {
+  final int minValue;
+  final int maxValue;
+  final int? initialIntegerValue;
+  final double? initialDoubleValue;
+  final int decimalPlaces;
+  final Widget? title;
+  final EdgeInsets? titlePadding;
+  final Widget confirmWidget;
+  final Widget cancelWidget;
+  final int step;
+
+  const NumberPickerDialog.integer({
+    super.key,
+    required this.minValue,
+    required this.maxValue,
+    required this.initialIntegerValue,
+    this.title,
+    this.titlePadding,
+    this.step = 1,
+    Widget? confirmWidget,
+    Widget? cancelWidget,
+  })  : confirmWidget = confirmWidget ?? const Text("OK"),
+        cancelWidget = cancelWidget ?? const Text("CANCEL"),
+        decimalPlaces = 0,
+        initialDoubleValue = null;
+
   @override
   State<NumberPickerDialog> createState() => _NumberPickerDialogState();
 }
