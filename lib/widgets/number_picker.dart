@@ -313,6 +313,21 @@ class NumberPickerDialog extends StatefulWidget {
         decimalPlaces = 0,
         initialDoubleValue = null;
 
+  const NumberPickerDialog.decimal({
+    super.key,
+    required this.minValue,
+    required this.maxValue,
+    required this.initialDoubleValue,
+    this.decimalPlaces = 1,
+    this.title,
+    this.titlePadding,
+    Widget? confirmWidget,
+    Widget? cancelWidget,
+  })  : confirmWidget = confirmWidget ?? const Text("OK"),
+        cancelWidget = cancelWidget ?? const Text("CANCEL"),
+        initialIntegerValue = null,
+        step = 1;
+
   @override
   State<NumberPickerDialog> createState() => _NumberPickerDialogState();
 }
