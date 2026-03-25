@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class NumberPicker extends StatelessWidget {
   static const double defaultItemExtent = 50.0;
@@ -196,6 +197,90 @@ class NumberPicker extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  // --- Helpers & Notifications ---
+
+  int _intValueFromIndex(int index) => minValue + (index - 1) * step;
+
+  bool _onIntegerNotification(ScrollNotification notification) {
+    final double centerOffset = notification.metrics.pixels + (_listViewHeight / 2);
+    final int indexOfMiddle = centerOffset ~/ itemExtent;
+    int valueInMiddle = _intValueFromIndex(indexOfMiddle);
+    valueInMiddle = _normalizeIntegerMiddleValue(valueInMiddle);
+
+    if (_userStoppedScrolling(notification, intScrollController)) {
+      animateInt(valueInMiddle);
+    }
+
+    if (valueInMiddle != selectedIntValue) {
+      num newValue;
+      if (decimalPlaces == 0) {
+        newValue = valueInMiddle;
+      } else {
+        if (valueInMiddle == maxValue) {
+          newValue = valueInMiddle.toDouble();
+          animateDecimal(0);
+        } else {
+          final double decimalPart = _toDecimal(selectedDecimalValue ?? 0);
+          newValue = valueInMiddle + decimalPart;
+        }
+      }
+      onChanged(newValue);
+    }
+    return true;
+  }
+
+  bool _onDecimalNotification(ScrollNotification notification) {
+    final double centerOffset = notification.metrics.pixels + (_listViewHeight / 2);
+    final int decimalValueInMiddle = (centerOffset ~/ itemExtent) - 1;
+    final int normalizedValue = _normalizeDecimalMiddleValue(decimalValueInMiddle);
+
+    if (_userStoppedScrolling(notification, decimalScrollController)) {
+      animateDecimal(normalizedValue);
+    }
+
+    if (selectedIntValue != maxValue && normalizedValue != selectedDecimalValue) {
+      final double decimalPart = _toDecimal(normalizedValue);
+      final double newValue = selectedIntValue + decimalPart;
+      onChanged(newValue);
+    }
+    return true;
+  }
+
+  double _calculateCacheExtent(int itemCount) {
+    double cacheExtent = 250.0;
+    if ((itemCount - 2) * defaultItemExtent <= cacheExtent) {
+      cacheExtent = ((itemCount - 3) * defaultItemExtent);
+    }
+    return cacheExtent;
+  }
+
+  int _normalizeMiddleValue(int value, int min, int max) {
+    return math.max(math.min(value, max), min);
+  }
+
+  int _normalizeIntegerMiddleValue(int value) {
+    final int max = (maxValue ~/ step) * step;
+    return _normalizeMiddleValue(value, minValue, max);
+  }
+
+  int _normalizeDecimalMiddleValue(int value) {
+    final int max = math.pow(10, decimalPlaces).toInt() - 1;
+    return _normalizeMiddleValue(value, 0, max);
+  }
+
+  bool _userStoppedScrolling(ScrollNotification notification, ScrollController? controller) {
+    return notification is UserScrollNotification &&
+        notification.direction == ScrollDirection.idle &&
+        controller != null;
+  }
+
+  double _toDecimal(int decimalValueAsInteger) {
+    return double.parse(
+      (decimalValueAsInteger * math.pow(10, -decimalPlaces))
+          .toStringAsFixed(decimalPlaces),
     );
   }
 }
