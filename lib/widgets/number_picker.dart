@@ -105,4 +105,97 @@ class NumberPicker extends StatelessWidget {
       curve: const ElasticOutCurve(),
     );
   }
+
+  // --- Build Logic ---
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    if (decimalPlaces == 0) {
+      return _integerListView(theme);
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _integerListView(theme),
+          _decimalListView(theme),
+        ],
+      );
+    }
+  }
+
+  Widget _integerListView(ThemeData theme) {
+    final TextStyle defaultStyle = theme.textTheme.bodyMedium!;
+    final TextStyle selectedStyle = theme.textTheme.headlineMedium!.copyWith(
+      color: theme.colorScheme.primary,
+    );
+
+    int itemCount = (maxValue - minValue) ~/ step + 3;
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) => _onIntegerNotification(notification),
+      child: SizedBox(
+        height: _listViewHeight / 3,
+        width: listViewWidth,
+        child: ListView.builder(
+          scrollDirection: scrollDirection,
+          controller: intScrollController,
+          itemExtent: itemExtent,
+          itemCount: itemCount,
+          cacheExtent: _calculateCacheExtent(itemCount),
+          itemBuilder: (context, index) {
+            final int value = _intValueFromIndex(index);
+            final bool isExtra = index == 0 || index == itemCount - 1;
+
+            if (isExtra) return const SizedBox.shrink();
+
+            final TextStyle itemStyle =
+                value == selectedIntValue ? selectedStyle : defaultStyle;
+
+            return Center(
+              child: Text(value.toString(), style: itemStyle),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _decimalListView(ThemeData theme) {
+    final TextStyle defaultStyle = theme.textTheme.bodyMedium!;
+    final TextStyle selectedStyle = theme.textTheme.headlineMedium!.copyWith(
+      color: theme.colorScheme.primary,
+    );
+    final int decimalRange = math.pow(10, decimalPlaces).toInt();
+    final int itemCount = selectedIntValue == maxValue ? 3 : decimalRange + 2;
+
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) => _onDecimalNotification(notification),
+      child: SizedBox(
+        height: _listViewHeight,
+        width: listViewWidth,
+        child: ListView.builder(
+          controller: decimalScrollController,
+          itemExtent: itemExtent,
+          itemCount: itemCount,
+          itemBuilder: (context, index) {
+            final int value = index - 1;
+            final bool isExtra = index == 0 || index == itemCount - 1;
+
+            if (isExtra) return const SizedBox.shrink();
+
+            final TextStyle itemStyle = value == selectedDecimalValue ? selectedStyle : defaultStyle;
+
+            return Center(
+              child: Text(
+                value.toString().padLeft(decimalPlaces, '0'),
+                style: itemStyle,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
