@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class NumberPicker extends StatelessWidget {
@@ -77,4 +78,31 @@ class NumberPicker extends StatelessWidget {
   final int? selectedDecimalValue;
   final int step;
   final Axis scrollDirection;
+
+  // --- Animations ---
+
+  void animateInt(int valueToSelect) {
+    int diff = valueToSelect - minValue;
+    int index = diff ~/ step;
+    _animate(intScrollController, index * itemExtent);
+  }
+
+  void animateDecimal(int decimalValue) {
+    _animate(decimalScrollController, decimalValue * itemExtent);
+  }
+
+  void animateDecimalAndInteger(double valueToSelect) {
+    animateInt(valueToSelect.floor());
+    animateDecimal(((valueToSelect - valueToSelect.floorToDouble()) *
+            math.pow(10, decimalPlaces))
+        .round());
+  }
+
+  void _animate(ScrollController? scrollController, double value) {
+    scrollController?.animateTo(
+      value,
+      duration: const Duration(seconds: 1),
+      curve: const ElasticOutCurve(),
+    );
+  }
 }
