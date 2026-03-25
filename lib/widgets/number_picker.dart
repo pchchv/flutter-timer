@@ -335,4 +335,11 @@ class NumberPickerDialog extends StatefulWidget {
 class _NumberPickerDialogState extends State<NumberPickerDialog> {
   late int selectedIntValue;
   late double selectedDoubleValue;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIntValue = widget.initialIntegerValue ?? 0;
+    selectedDoubleValue = widget.initialDoubleValue ?? 0.0;
+  }
 }
