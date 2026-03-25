@@ -26,6 +26,21 @@ class _SelectorState<T> extends State<_Selector<T>> {
       itemExtent: 60,
       childCount: widget.items.length,
       backgroundColor: Colors.transparent,
+      itemBuilder: (context, index) {
+        final bool isSelected = (_currentIndex == index);
+        final item = widget.items[index];
+
+        return Center(
+          child: Text(
+            widget.itemBuilder(item),
+            style: TextStyle(
+              fontSize: 14,
+              color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        );
+      },
     );
   }
 }
