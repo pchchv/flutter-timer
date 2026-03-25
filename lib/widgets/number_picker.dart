@@ -342,4 +342,10 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
     selectedIntValue = widget.initialIntegerValue ?? 0;
     selectedDoubleValue = widget.initialDoubleValue ?? 0.0;
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+    );
+  }
 }
