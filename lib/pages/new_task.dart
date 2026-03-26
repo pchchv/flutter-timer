@@ -95,6 +95,12 @@ class _NewTaskPageState extends State<NewTaskPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: '');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
