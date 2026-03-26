@@ -52,20 +52,24 @@ class _SelectorState<T> extends State<_Selector<T>> {
 }
 
 class NewTaskPage extends StatefulWidget {
+  const NewTaskPage({super.key});
+
   @override
-  _NewTaskPageState createState() => _NewTaskPageState();
+  State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
 class _NewTaskPageState extends State<NewTaskPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
+    return Material(
       color: Colors.white,
-      margin: EdgeInsets.all(16),
-      child: Column(
-        children: <Widget>[
-        ],
+      child: Container(
+        height: 450,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+          ],
+        ),
       ),
     );
   }
