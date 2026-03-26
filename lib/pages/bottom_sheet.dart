@@ -27,4 +27,9 @@ class CustomBottomSheet extends StatefulWidget {
 }
 
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+    );
+  }
 }
