@@ -72,6 +72,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onVerticalDragUpdate: _handleDragUpdate,
+      onVerticalDragEnd: _handleDragEnd,
+      child: Material(
+        key: _childKey,
+        child: widget.builder(context),
+      ),
     );
   }
 }
