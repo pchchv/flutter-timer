@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const Duration _kBottomSheetDuration = Duration(milliseconds: 200);
-// const double _kMinFlingVelocity = 700.0;
-// const double _kCloseProgressThreshold = 0.5;
+const double _kMinFlingVelocity = 700.0;
+const double _kCloseProgressThreshold = 0.5;
 
 class CustomBottomSheet extends StatefulWidget {
   const CustomBottomSheet({
@@ -43,6 +43,30 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
     
     double delta = details.primaryDelta ?? 0.0;
     widget.animationController!.value -= delta / (_childHeight > 0 ? _childHeight : delta);
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    if (_dismissUnderway || widget.animationController == null) return;
+
+    final double velocity = details.velocity.pixelsPerSecond.dy;
+    final AnimationController controller = widget.animationController!;
+
+    if (velocity > _kMinFlingVelocity) {
+      final double flingVelocity = -velocity / _childHeight;
+      if (controller.value > 0.0) {
+        controller.fling(velocity: flingVelocity);
+      }
+      if (flingVelocity < 0.0) {
+        widget.onClosing();
+      }
+    } else if (controller.value < _kCloseProgressThreshold) {
+      if (controller.value > 0.0) {
+        controller.fling(velocity: -1.0);
+      }
+      widget.onClosing();
+    } else {
+      controller.forward();
+    }
   }
 
   @override
