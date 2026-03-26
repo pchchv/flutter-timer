@@ -57,4 +57,16 @@ class NewTaskPage extends StatefulWidget {
 }
 
 class _NewTaskPageState extends State<NewTaskPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      color: Colors.white,
+      margin: EdgeInsets.all(16),
+      child: Column(
+        children: <Widget>[
+        ],
+      ),
+    );
+  }
 }
