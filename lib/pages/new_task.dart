@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_timer/model/task.dart';
 
 class _Selector<T> extends StatefulWidget {
   final List<T> items;
@@ -75,6 +77,21 @@ class _NewTaskPageState extends State<NewTaskPage> {
     final Random r = Random();
     final colorsList = Colors.primaries;
     return colorsList[r.nextInt(colorsList.length)];
+  }
+
+  void _saveTaskAndClose() {
+    if (_formKey.currentState?.validate() ?? false) {
+      final color = getRandomColor();
+      final task = Task(
+        color: color,
+        title: _titleController.text,
+        hours: _selectedHour,
+        minutes: _selectedMinute,
+        seconds: _selectedSecond,
+      );
+
+      Navigator.of(context).pop(task);
+    }
   }
 
   @override
