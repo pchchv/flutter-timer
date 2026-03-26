@@ -101,6 +101,12 @@ class _NewTaskPageState extends State<NewTaskPage> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
