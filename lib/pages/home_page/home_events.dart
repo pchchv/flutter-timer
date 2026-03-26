@@ -6,3 +6,10 @@ abstract class HomeEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class LoadTasksEvent extends HomeEvent {
+  const LoadTasksEvent();
+
+  @override
+  String toString() => 'LoadTasksEvent';
+}
