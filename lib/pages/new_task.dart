@@ -62,7 +62,14 @@ class _NewTaskPageState extends State<NewTaskPage> {
   late TextEditingController _titleController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  static const int maxHours = 24;
+  static const int maxMinutes = 60;
+  static const int maxSeconds = 60;
   static const int _maxTitleLength = 30;
+
+  int _selectedHour = 0;
+  int _selectedMinute = 0;
+  int _selectedSecond = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +102,14 @@ class _NewTaskPageState extends State<NewTaskPage> {
             const Text(
               'Duration',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                _buildPicker('hours', maxHours, (val) => _selectedHour = val, "hours"),
+                _buildPicker('minutes', maxMinutes, (val) => _selectedMinute = val, "min"),
+                _buildPicker('seconds', maxSeconds, (val) => _selectedSecond = val, "sec"),
+              ],
             ),
           ],
         ),
