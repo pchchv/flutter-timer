@@ -91,6 +91,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
+            const Text(
+              'Duration',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
