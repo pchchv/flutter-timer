@@ -26,3 +26,15 @@ class SaveTaskEvent extends HomeEvent {
   @override
   String toString() => 'SaveTaskEvent { task: ${task.title} }';
 }
+
+class DeleteTaskEvent extends HomeEvent {
+  final Task task;
+
+  const DeleteTaskEvent({required this.task});
+
+  @override
+  List<Object?> get props => [task];
+
+  @override
+  String toString() => 'DeleteTaskEvent { task: ${task.title} }';
+}
