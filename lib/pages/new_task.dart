@@ -101,4 +101,19 @@ class _NewTaskPageState extends State<NewTaskPage> {
       ),
     );
   }
+
+  // Helper to keep the build method clean.
+  Widget _buildPicker(String key, int max, Function(int) onChanged, String label) {
+    return Expanded(
+      child: SizedBox(
+        key: ObjectKey(key),
+        height: 110,
+        child: _Selector<int>(
+          items: List.generate(max, (i) => i),
+          itemBuilder: (i) => "$i $label",
+          onSelectedItemChanged: (val) => onChanged(val),
+        ),
+      ),
+    );
+  }
 }
