@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_timer/model/task.dart';
 
 abstract class HomeEvent extends Equatable {
   const HomeEvent();
@@ -12,4 +13,16 @@ class LoadTasksEvent extends HomeEvent {
 
   @override
   String toString() => 'LoadTasksEvent';
+}
+
+class SaveTaskEvent extends HomeEvent {
+  final Task task;
+
+  const SaveTaskEvent({required this.task});
+
+  @override
+  List<Object?> get props => [task];
+
+  @override
+  String toString() => 'SaveTaskEvent { task: ${task.title} }';
 }
