@@ -59,6 +59,11 @@ class NewTaskPage extends StatefulWidget {
 }
 
 class _NewTaskPageState extends State<NewTaskPage> {
+  late TextEditingController _titleController;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  static const int _maxTitleLength = 30;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -68,6 +73,24 @@ class _NewTaskPageState extends State<NewTaskPage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: <Widget>[
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                maxLength: _maxTitleLength,
+                controller: _titleController,
+                style: const TextStyle(fontSize: 24.0, color: Colors.black),
+                validator: (val) {
+                  if (val == null || val.trim().isEmpty) return 'Task title is required.';
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Task Title',
+                  filled: true,
+                  fillColor: Colors.white,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                ),
+              ),
+            ),
           ],
         ),
       ),
