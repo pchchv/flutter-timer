@@ -140,6 +140,25 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 _buildPicker('seconds', maxSeconds, (val) => _selectedSecond = val, "sec"),
               ],
             ),
+            const Spacer(),
+            InkWell(
+              onTap: _saveTaskAndClose,
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Text(
+                    'SAVE',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
