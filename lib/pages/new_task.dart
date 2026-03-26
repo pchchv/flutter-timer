@@ -50,3 +50,11 @@ class _SelectorState<T> extends State<_Selector<T>> {
     );
   }
 }
+
+class NewTaskPage extends StatefulWidget {
+  @override
+  _NewTaskPageState createState() => _NewTaskPageState();
+}
+
+class _NewTaskPageState extends State<NewTaskPage> {
+}
