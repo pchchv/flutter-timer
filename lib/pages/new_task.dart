@@ -71,6 +71,12 @@ class _NewTaskPageState extends State<NewTaskPage> {
   int _selectedMinute = 0;
   int _selectedSecond = 0;
 
+  Color getRandomColor() {
+    final Random r = Random();
+    final colorsList = Colors.primaries;
+    return colorsList[r.nextInt(colorsList.length)];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
