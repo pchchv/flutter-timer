@@ -40,6 +40,7 @@ class DatabaseProvider {
     return _database!;
   }
 
+
   Future<List<Task>> getAll() async {
     final dbClient = await database;
     final List<Map<String, dynamic>> query = await dbClient.query('Task');
@@ -49,5 +50,24 @@ class DatabaseProvider {
         : [];
 
     return tasks;
+  }
+
+  Future<int> insert(Task task) async {
+    final dbClient = await database;
+    
+    var raw = await dbClient.insert(
+      'Task',
+      {
+        // Use toARGB32() instead of .value
+        'color': task.color.toARGB32(),
+        'title': task.title,
+        'hours': task.hours,
+        'minutes': task.minutes,
+        'seconds': task.seconds,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return raw;
   }
 }
