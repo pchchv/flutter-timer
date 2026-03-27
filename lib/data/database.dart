@@ -70,4 +70,13 @@ class DatabaseProvider {
 
     return raw;
   }
+
+  Future<int> delete(int id) async {
+    final dbClient = await database;
+    return await dbClient.delete(
+      'Task',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
