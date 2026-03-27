@@ -55,6 +55,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: _openBottomSheet,
+        child: const Icon(Icons.add, size: 26, color: Colors.black),
+      ),
     );
   }
 }
