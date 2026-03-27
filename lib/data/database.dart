@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter_timer/model/task.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DatabaseProvider {
@@ -37,5 +38,16 @@ class DatabaseProvider {
 
     _database = await _initDb();
     return _database!;
+  }
+
+  Future<List<Task>> getAll() async {
+    final dbClient = await database;
+    final List<Map<String, dynamic>> query = await dbClient.query('Task');
+
+    List<Task> tasks = query.isNotEmpty 
+        ? query.map((t) => Task.fromMap(t)).toList() 
+        : [];
+
+    return tasks;
   }
 }
