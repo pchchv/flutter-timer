@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timer/model/task.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_timer/widgets/task.dart';
 import 'package:flutter_timer/pages/new_task.dart';
 import 'package:flutter_timer/pages/home_page/home_bloc.dart';
+import 'package:flutter_timer/pages/home_page/home_state.dart';
 import 'package:flutter_timer/pages/home_page/home_events.dart';
 
 class HomePage extends StatefulWidget {
@@ -65,6 +68,59 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         onPressed: _openBottomSheet,
         child: const Icon(Icons.add, size: 26, color: Colors.black),
+      ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        bloc: widget.homeBloc,
+        builder: (context, state) {
+          if (state is HomeStateLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state is HomeStateLoaded) {
+            final List<Task> tasks = state.tasks;
+
+            if (tasks.isEmpty) {
+              return const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('No Tasks',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    Text('Add a new Task and it\nwill show up here.',
+                        textAlign: TextAlign.center)
+                  ],
+                ),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: tasks.length,
+              padding: const EdgeInsets.only(top: 8),
+              itemBuilder: (context, index) {
+                final Task item = tasks[index];
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: Dismissible(
+                    key: ObjectKey(item),
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 20),
+                      color: Colors.red,
+                      child: const Icon(Icons.delete, color: Colors.white),
+                    ),
+                    onDismissed: (direction) {
+                      widget.homeBloc.add(DeleteTaskEvent(task: item));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Task Deleted")));
+                    },
+                    child: TaskWidget(task: item),
+                  ),
+                );
+              },
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }
