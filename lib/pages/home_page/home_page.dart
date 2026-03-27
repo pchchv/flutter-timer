@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timer/model/task.dart';
+import 'package:flutter_timer/pages/new_task.dart';
 import 'package:flutter_timer/pages/home_page/home_bloc.dart';
+import 'package:flutter_timer/pages/home_page/home_events.dart';
 
 class HomePage extends StatefulWidget {
   final String title = 'Task Timer';
@@ -13,6 +16,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openBottomSheet() async {
+    final newTask = await showModalBottomSheet<Task>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: const NewTaskPage(),
+        );
+      },
+    );
+
+    if (newTask != null) {
+      widget.homeBloc.add(SaveTaskEvent(task: newTask));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
