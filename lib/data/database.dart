@@ -8,6 +8,7 @@ class DatabaseProvider {
   DatabaseProvider._();
 
   static final DatabaseProvider db = DatabaseProvider._();
+  static Database? _database; // Nullable for lazy loading
 
   Future<Database> _initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
@@ -29,5 +30,12 @@ class DatabaseProvider {
         ''');
       },
     );
+  }
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+
+    _database = await _initDb();
+    return _database!;
   }
 }
