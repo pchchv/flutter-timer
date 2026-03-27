@@ -19,4 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     
     add(const LoadTasksEvent());
   }
+
+  Future<void> _onDeleteTask(DeleteTaskEvent event, Emitter<HomeState> emit) async {
+    await taskManager.deleteTask(event.task);
+    add(const LoadTasksEvent());
+  }
 }
