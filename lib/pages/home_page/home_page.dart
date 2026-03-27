@@ -12,10 +12,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        centerTitle: false,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+            color: Colors.black, 
+            fontSize: 32.0, 
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
