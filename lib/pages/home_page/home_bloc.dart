@@ -12,4 +12,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final data = await taskManager.loadAllTasks();
     emit(HomeStateLoaded(tasks: data));
   }
+
+  Future<void> _onSaveTask(SaveTaskEvent event, Emitter<HomeState> emit) async {
+    emit(const HomeStateLoading());
+    await taskManager.addNewTask(event.task);
+    
+    add(const LoadTasksEvent());
+  }
 }
