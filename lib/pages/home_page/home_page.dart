@@ -6,4 +6,10 @@ class HomePage extends StatefulWidget {
   final HomeBloc homeBloc;
 
   const HomePage({super.key, required this.homeBloc});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 }
