@@ -10,4 +10,8 @@ class TaskManager {
   Future<int> addNewTask(Task task) async {
     return await dbProvider.insert(task);
   }
+
+  Future<List<Task>> loadAllTasks() async {
+    return await dbProvider.getAll();
+  }
 }
