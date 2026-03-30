@@ -46,4 +46,10 @@ class Observer extends BlocObserver {
     super.onTransition(bloc, transition);
     logger.i('Transition in ${bloc.runtimeType}: $transition');
   }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    logger.e('Error in ${bloc.runtimeType}', error: error, stackTrace: stackTrace);
+    super.onError(bloc, error, stackTrace);
+  }
 }
