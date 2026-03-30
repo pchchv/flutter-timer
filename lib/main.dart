@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer/pages/splash.dart';
 import 'package:flutter_timer/pages/new_task.dart';
+import 'package:flutter_timer/data/database.dart';
 import 'package:flutter_timer/data/task_manager.dart';
 import 'package:flutter_timer/pages/home_page/home_bloc.dart';
 import 'package:flutter_timer/pages/home_page/home_page.dart';
@@ -18,6 +19,10 @@ void main() {
 
   // Set the global Bloc observer
   Bloc.observer = Observer();
+
+  // Setup dependencies
+  final dbProvider = DatabaseProvider.db;
+  final _ = TaskManager(dbProvider: dbProvider);
 }
 
 class TimerApp extends StatelessWidget {
