@@ -12,6 +12,11 @@ final logger = Logger(
   printer: PrettyPrinter(methodCount: 0),
 );
 
+void main() {
+  // Ensure Flutter is ready for platform plugins
+  WidgetsFlutterBinding.ensureInitialized();
+}
+
 class TimerApp extends StatelessWidget {
   final TaskManager taskManager;
 
