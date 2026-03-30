@@ -15,6 +15,9 @@ final logger = Logger(
 void main() {
   // Ensure Flutter is ready for platform plugins
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Set the global Bloc observer
+  Bloc.observer = Observer();
 }
 
 class TimerApp extends StatelessWidget {
