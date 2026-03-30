@@ -38,3 +38,12 @@ class TimerApp extends StatelessWidget {
     );
   }
 }
+
+// Bloc Observer for logging transitions
+class Observer extends BlocObserver {
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    logger.i('Transition in ${bloc.runtimeType}: $transition');
+  }
+}
