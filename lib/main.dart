@@ -22,7 +22,9 @@ void main() {
 
   // Setup dependencies
   final dbProvider = DatabaseProvider.db;
-  final _ = TaskManager(dbProvider: dbProvider);
+  final taskManager = TaskManager(dbProvider: dbProvider);
+
+  runApp(TimerApp(taskManager: taskManager));
 }
 
 class TimerApp extends StatelessWidget {
