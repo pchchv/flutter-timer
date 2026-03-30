@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_timer/pages/splash.dart';
+import 'package:flutter_timer/pages/new_task.dart';
 import 'package:flutter_timer/data/task_manager.dart';
 import 'package:flutter_timer/pages/home_page/home_bloc.dart';
+import 'package:flutter_timer/pages/home_page/home_page.dart';
 import 'package:flutter_timer/pages/home_page/home_events.dart';
 
 class TimerApp extends StatelessWidget {
@@ -14,6 +17,19 @@ class TimerApp extends StatelessWidget {
     return BlocProvider<HomeBloc>(
       // Create the Bloc and immediately trigger the load event
       create: (context) => HomeBloc(taskManager: taskManager)..add(const LoadTasksEvent()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorSchemeSeed: Colors.blue,
+        ),
+        // Start with the SplashPage
+        home: const SplashPage(),
+        routes: <String, WidgetBuilder>{
+          '/home': (context) => HomePage(homeBloc: context.read<HomeBloc>()),
+          '/new': (context) => const NewTaskPage(),
+        },
+      ),
     );
   }
 }
