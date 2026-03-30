@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_timer/pages/splash.dart';
@@ -6,6 +7,10 @@ import 'package:flutter_timer/data/task_manager.dart';
 import 'package:flutter_timer/pages/home_page/home_bloc.dart';
 import 'package:flutter_timer/pages/home_page/home_page.dart';
 import 'package:flutter_timer/pages/home_page/home_events.dart';
+
+final logger = Logger(
+  printer: PrettyPrinter(methodCount: 0),
+);
 
 class TimerApp extends StatelessWidget {
   final TaskManager taskManager;
